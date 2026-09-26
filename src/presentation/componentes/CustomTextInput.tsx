@@ -10,6 +10,7 @@ interface props {
     keyboardType: KeyboardType,
     secureTextEntry?: boolean,
     property: string,
+    maxLength?: number,
     onChangeText: (property: string, value: any) => void,
 }
 
@@ -19,13 +20,14 @@ export const CustomTextInput = ({
     value,
     keyboardType,
     secureTextEntry = false,
+    maxLength,
     property,
     onChangeText,
 }: props) => {
   return (
     <View style={styles.formInput} >
         <Image style={styles.formIcon} source={ image } />
-        <TextInput style={styles.textInput} placeholder={ placeholder } keyboardType={ keyboardType } value={ value } onChangeText={ text => onChangeText( property, text ) } secureTextEntry={ secureTextEntry } />
+        <TextInput style={styles.textInput} placeholder={ placeholder } keyboardType={ keyboardType } value={ value } onChangeText={ text => onChangeText( property, text ) } secureTextEntry={ secureTextEntry } maxLength={ maxLength }/>
     </View>
     )
 }

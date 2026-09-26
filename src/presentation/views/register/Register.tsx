@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, } from 'react-native';
+import { View, Text, Image, StyleSheet, KeyboardAvoidingView, ScrollView,Platform } from 'react-native';
 
 import { RoundedButton } from '../../componentes/RoundedButton';
 import { MyColors, variables } from '../../theme/AppTheme';
@@ -11,6 +11,7 @@ export const RegisterScreen = () => {
   const { name, lastname, email, phone, password, confirmPassword, onChange, register } = useViewModel();
 
   return (
+
     <View style={styles.container}>
 
       {/* <Image style={styles.imageBackground} source={ require('../../../../assets/chef.jpg') } /> */}
@@ -25,15 +26,17 @@ export const RegisterScreen = () => {
 
         <Text style={styles.formText} > REGISTRARSE </Text>
 
+<ScrollView contentContainerStyle={styles.scroll} >
+      
         <CustomTextInput placeholder='Nombres' value={name} property='name' keyboardType='default' image={variables.userIcon1} secureTextEntry={false} onChangeText={onChange}  />
 
         <CustomTextInput placeholder='Apellidos' value={lastname} property='lastname' keyboardType='default' image={variables.userIcon2} secureTextEntry={false} onChangeText={onChange}  />
 
         <CustomTextInput placeholder='Correo electrónico' value={email} property='email' keyboardType='email-address' image={variables.emailIcon} secureTextEntry={false} onChangeText={onChange}  />
 
-        <CustomTextInput placeholder='Teléfono' value={phone} property='phone' keyboardType='number-pad' image={variables.phoneIcon} secureTextEntry={false} onChangeText={onChange}  />
+        <CustomTextInput placeholder='Teléfono' value={phone} property='phone' keyboardType='number-pad' image={variables.phoneIcon} secureTextEntry={false} onChangeText={onChange} maxLength={ 10 } />
 
-        <CustomTextInput placeholder='Contraseña' value={password} property='password' keyboardType='number-pad' image={variables.lockIcon1} secureTextEntry={true} onChangeText={onChange}  />
+        <CustomTextInput placeholder='Contraseña' value={password} property='password' keyboardType='number-pad' image={variables.lockIcon1} secureTextEntry={true} onChangeText={onChange} />
 
         <CustomTextInput placeholder='Confirmar contraseña' value={confirmPassword} property='confirmPassword' keyboardType='number-pad' image={variables.lockIcon2} secureTextEntry={true} onChangeText={onChange}  />
 
@@ -41,9 +44,14 @@ export const RegisterScreen = () => {
           <RoundedButton text='REGISTRARSE' onPress={ () => register() } />
         </View>
 
-      </View>
+        <Text style={ styles.text } >Estás a un click de ser parte katisa...</Text>
+      
+</ScrollView>
+
+      </View>      
 
     </View>
+
   );
 }
 
@@ -96,4 +104,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: MyColors.text,    
   },
+  scroll:{
+    paddingBottom: 250
+  },
+  text:{
+    paddingTop: 20,
+    color: MyColors.secondary,
+    fontSize: 25,
+    fontWeight: '700',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontStyle: 'italic',
+    textDecorationStyle: 'double',
+    textShadowColor: 'grey',
+    textShadowOffset: { width: 4, height: 2 },
+    textShadowRadius: 12,
+  }
 });

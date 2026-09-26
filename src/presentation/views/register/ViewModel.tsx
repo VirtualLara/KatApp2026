@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, } from 'react';
+import { ApiDelivery } from '../../../data/sources/remote/api/ApiDelivery';
+import { RegisterAuthUseCase } from '../../../domain/useCase/auth/RegisterAuth';
+
 
 const RegisterViewModel = () => {
 
@@ -6,6 +9,10 @@ const RegisterViewModel = () => {
         name: '',
         lastname: '',
         phone: '',
+        //ocupation:'',
+        //postalCode:'',
+        //interests:'',
+        //notifications:'',
         email: '',
         password: '',
         confirmPassword: '',
@@ -16,8 +23,9 @@ const RegisterViewModel = () => {
       setValues({ ...values, [property]: value })
     }; 
     
-    const register = () => {
-      console.log(JSON.stringify( values ));
+    const register = async () => {
+      const response = await RegisterAuthUseCase(values);
+      console.log('Result '+ JSON.stringify(response));
     };
 
   return {
