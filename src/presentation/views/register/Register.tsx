@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, Image, StyleSheet, KeyboardAvoidingView, ScrollView,Platform } from 'react-native';
+import React, { useEffect } from 'react'
+import { View, Text, Image, StyleSheet, ScrollView, ToastAndroid } from 'react-native';
 
 import { RoundedButton } from '../../componentes/RoundedButton';
 import { MyColors, variables } from '../../theme/AppTheme';
@@ -8,7 +8,13 @@ import { CustomTextInput } from '../../componentes/CustomTextInput';
 
 export const RegisterScreen = () => {
 
-  const { name, lastname, email, phone, password, confirmPassword, onChange, register } = useViewModel();
+  const { name, lastname, email, phone, password, confirmPassword, errorMessage, onChange, register, } = useViewModel();
+
+  useEffect (() => {
+    if ( errorMessage != '' ) {
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG );
+    } 
+  }, [errorMessage])
 
   return (
 
@@ -26,7 +32,7 @@ export const RegisterScreen = () => {
 
         <Text style={styles.formText} > REGISTRARSE </Text>
 
-<ScrollView contentContainerStyle={styles.scroll} >
+      <ScrollView contentContainerStyle={styles.scroll} >
       
         <CustomTextInput placeholder='Nombres' value={name} property='name' keyboardType='default' image={variables.userIcon1} secureTextEntry={false} onChangeText={onChange}  />
 
@@ -41,12 +47,12 @@ export const RegisterScreen = () => {
         <CustomTextInput placeholder='Confirmar contraseña' value={confirmPassword} property='confirmPassword' keyboardType='number-pad' image={variables.lockIcon2} secureTextEntry={true} onChangeText={onChange}  />
 
         <View style={{ marginTop:20 }} >
-          <RoundedButton text='REGISTRARSE' onPress={ () => register() } />
+          <RoundedButton text='REGISTRARSE' onPress={ () => [register(), console.log('ok boton')] } />
         </View>
 
         <Text style={ styles.text } >Estás a un click de ser parte katisa...</Text>
       
-</ScrollView>
+      </ScrollView>
 
       </View>      
 
